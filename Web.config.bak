@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<configuration>
+  <connectionStrings>
+	
+    <add name="MicroInsuranceConnectionString" connectionString="Data Source=Cherubi; Initial Catalog=db_MicroInsurance; User ID=usr_MicroInsuranceSec; Password="/>
+    <add name="dbMicroinsuranceConnStringReader" connectionString="Data Source=Cherubi; Integrated Security=false; Initial Catalog=db_Microinsurance; uid=MicroInsurance_Reader; Password=; " providerName="System.Data.SqlClient"/>
+    <add name="dbMicroinsuranceConnStringWriter" connectionString="Data Source=Cherubi; Integrated Security=false; Initial Catalog=db_Microinsurance; uid=MicroInsurance_Writer; Password=; " providerName="System.Data.SqlClient"/>
+    <add name="dbBDS_MicroinsuranceConnStringReader" connectionString="Data Source=Cherubi; Integrated Security=false; Initial Catalog=db_Microinsurance; uid=BDS_MicroSiteReader; Password=; " providerName="System.Data.SqlClient"/>
+
+  </connectionStrings>
+  <appSettings>
+    <add key="PassKey" value=""/>
+    <add key="mailCC" value=""/>
+    <add key="mailBcc" value=""/>
+    <add key="mailSubject" value="COC Confirmation"/>
+    <add key="messagePath" value="C:\inetpub\wwwroot\CLIBMicrositeWS\Bin\GenericEMailFormat.htm"/>
+    <add key="CLIBrefCode" value="CLIB"/>
+    <add key="Smtp.Client" value="elekid.pjlhuillier.local"/>
+  </appSettings>
+  <system.web>
+    <compilation targetFramework="4.0" debug="true"/>
+    <httpRuntime enableVersionHeader="false"/>
+  </system.web>
+	
+  <system.web.extensions>
+    <scripting>
+      <webServices>
+        <jsonSerialization maxJsonLength="2147483647"/>
+      </webServices>
+    </scripting>
+  </system.web.extensions>
+	
+  <system.net>
+    <mailSettings>
+      <smtp from="noreply-insurance &lt;noreply-insurance@pjlhuillier.com &gt;" deliveryMethod="Network">
+        <network port="25" host="eevee.pjlhuillier.local" userName="Noreply-insurance" password=""/>
+      </smtp>
+    </mailSettings>
+  </system.net>
+	
+  <system.serviceModel>
+    <services>
+      <service behaviorConfiguration="Default" name="CLIBMicrositeWS">
+        <endpoint address="" behaviorConfiguration="webBehavior" binding="webHttpBinding" bindingConfiguration="webBinding" contract="ICLIBMicrositeWS"/>
+      </service>
+    </services>
+    <bindings>
+      <webHttpBinding>
+        <binding name="webBinding" maxBufferSize="2147483647" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647" transferMode="Streamed">
+          <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647"/>
+          <security mode="None"/>
+        </binding>
+      </webHttpBinding>
+    </bindings>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior name="webBehavior">
+          <webHttp helpEnabled="true"/>
+        </behavior>
+      </endpointBehaviors>
+      <serviceBehaviors>
+        <behavior name="Default">
+          <serviceMetadata httpGetEnabled="false" httpsGetEnabled="false"/>
+          <serviceDebug includeExceptionDetailInFaults="true"/>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <diagnostics>
+      <messageLogging logEntireMessage="true" logMalformedMessages="true" logMessagesAtServiceLevel="true" logMessagesAtTransportLevel="true" maxMessagesToLog="3000" maxSizeOfMessageToLog="2000"/>
+    </diagnostics>
+    <serviceHostingEnvironment multipleSiteBindingsEnabled="true"/>
+  </system.serviceModel>
+	
+  <system.webServer>
+    <!--<modules runAllManagedModulesForAllRequests="true"/>-->
+    <!--
+        To browse web app root directory during debugging, set the value below to true.
+        Set to false before deployment to avoid disclosing web app folder information.
+      -->
+    <httpProtocol>
+      <customHeaders>
+        <add name="X-Frame-Options" value="SAMEORIGIN"/>
+      </customHeaders>
+    </httpProtocol>
+    <security>
+      <requestFiltering>
+        <verbs allowUnlisted="true">
+          <add verb="OPTIONS" allowed="false"/>
+        </verbs>
+      </requestFiltering>
+    </security>
+    <directoryBrowse enabled="true"/>
+    <defaultDocument>
+      <files>
+        <remove value="default.aspx"/>
+        <remove value="iisstart.htm"/>
+        <remove value="index.html"/>
+        <remove value="index.htm"/>
+        <remove value="Default.asp"/>
+        <remove value="Default.htm"/>
+        <add value="CLIBMicrositeWS.svc"/>
+      </files>
+    </defaultDocument>
+  </system.webServer>
+	
+  <runtime>
+    <webHttpBinding>
+      <binding name="webBinding" maxBufferSize="2147483647" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647" transferMode="streamed">
+        <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxTableCharCount="2147483647"/>
+      </binding>
+    </webHttpBinding>
+  </runtime>
+</configuration>
+<!--ProjectGuid: 71e26055-1963-4253-9dcf-7d2d7c1f1c02-->

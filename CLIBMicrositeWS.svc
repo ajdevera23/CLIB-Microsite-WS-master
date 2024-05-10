@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="CLIBMicrositeWS" CodeBehind="~/App_Code/CLIBMicrositeWS.cs" %>
