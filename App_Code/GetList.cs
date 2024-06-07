@@ -15,7 +15,6 @@ using System.Web.UI.WebControls;
 /// </summary>
 /// 
 
-//Comment from ryan
 public class GetList
 {
     AuditTrail auditTrail = new AuditTrail();
